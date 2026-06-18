@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# AI Hub — AI聚合平台导航站
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 汇集 50+ 优质 AI 中转站、聚合平台、纯度检测工具与开源项目
 
-Currently, two official plugins are available:
+[在线预览](https://just-agent.github.io/ai-aggregator-hub/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 特性
 
-## React Compiler
+- **50+ 精选平台** — 覆盖中转站纯度检测、聚合平台、国内中转站、开源工具四大分类
+- **精美格子矩阵** — 深色科技风 UI，响应式卡片网格，4-5 列桌面布局
+- **实时筛选搜索** — 分类标签切换 + 实时搜索，支持名称/描述/标签匹配
+- **流畅动效** — Framer Motion 入场动画、卡片悬停效果、模态框过渡
+- **详情模态框** — 点击卡片查看完整信息，一键访问/复制URL
+- **GitHub Pages 自动部署** — 推送即自动构建部署
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技术栈
 
-## Expanding the ESLint configuration
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS v4
+- Framer Motion
+- Lucide React
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 收录分类
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| 分类 | 数量 | 说明 |
+|------|------|------|
+| 纯度检测 | 8 | 中转站掺水率检测、Codex雷达、API检测工具 |
+| 聚合平台 | 12 | OpenRouter、MNAPI、API易等一站式接入平台 |
+| 中转站 | 20 | 硅基流动、ChatFire、GPTGod等国内中转服务 |
+| 开源工具 | 10 | NewAPI、OneAPI、awesome-ai-proxy等开源项目 |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 本地开发
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 构建
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
+
+## 提交到 GitHub
+
+```bash
+# 在GitHub创建仓库 https://github.com/just-agent/ai-aggregator-hub
+git remote add origin https://github.com/just-agent/ai-aggregator-hub.git
+git push -u origin main
+```
+
+推送后，GitHub Actions 将自动构建并部署到 GitHub Pages。
+
+## 参考网站
+
+- [hvoy.ai](https://hvoy.ai) — API中转站纯度检测
+- [codexradar.com](https://codexradar.com) — Codex模型质量雷达
+- [github.com/mn-api/awesome-ai-proxy](https://github.com/mn-api/awesome-ai-proxy) — 中转站导航仓库
+
+## License
+
+MIT
