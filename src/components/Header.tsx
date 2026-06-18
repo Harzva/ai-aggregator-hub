@@ -78,7 +78,7 @@ export default function Header({ searchQuery, onSearchChange }: HeaderProps) {
           </button>
 
             <a
-            href="https://github.com/just-agent/ai-aggregator-hub"
+            href="https://github.com/harzva/ai-aggregator-hub"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg hover:bg-card-hover transition-colors"

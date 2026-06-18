@@ -18,7 +18,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/just-agent/ai-aggregator-hub"
+              href="https://github.com/harzva/ai-aggregator-hub"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-sm text-muted hover:text-primary transition-colors"

@@ -2,7 +2,7 @@
 
 > 汇集 50+ 优质 AI 中转站、聚合平台、纯度检测工具与开源项目
 
-[在线预览](https://just-agent.github.io/ai-aggregator-hub/)
+[在线预览](https://harzva.github.io/ai-aggregator-hub/)
 
 ## 特性
 
@@ -46,8 +46,8 @@ npm run build
 ## 提交到 GitHub
 
 ```bash
-# 在GitHub创建仓库 https://github.com/just-agent/ai-aggregator-hub
-git remote add origin https://github.com/just-agent/ai-aggregator-hub.git
+# 在GitHub创建仓库 https://github.com/harzva/ai-aggregator-hub
+git remote add origin https://github.com/harzva/ai-aggregator-hub.git
 git push -u origin main
 ```
 

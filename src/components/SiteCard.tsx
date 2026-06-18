@@ -32,6 +32,18 @@ const categoryLabels: Record<string, string> = {
   opensource: '开源工具',
 };
 
+// 基于 id 生成稳定颜色（HSL -> 低饱和度暖色）
+function getColorFromId(id: string): { bg: string; border: string } {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = id.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash % 360);
+  const bg = `hsl(${hue} 40% 18%)`;
+  const border = `hsl(${hue} 50% 30%)`;
+  return { bg, border };
+}
+
 interface SiteCardProps {
   site: Site;
   index: number;
@@ -41,6 +53,8 @@ interface SiteCardProps {
 export default function SiteCard({ site, index, onClick }: SiteCardProps) {
   const IconComponent = iconMap[site.icon] || Globe;
   const statusColor = site.status === 'online' ? 'bg-status-online' : site.status === 'warning' ? 'bg-status-warn' : 'bg-status-danger';
+  const colors = getColorFromId(site.id);
+  const firstChar = site.name[0] || '?';
 
   return (
     <motion.div
@@ -50,7 +64,7 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
       transition={{ duration: 0.4, delay: index * 0.03, ease: 'easeOut' }}
       layout
       onClick={onClick}
-      className="group relative h-40 bg-card border border-border-default rounded-xl p-5 cursor-pointer
+      className="group relative bg-card border border-border-default rounded-xl cursor-pointer overflow-hidden
         transition-all duration-300 ease-out
         hover:bg-card-hover hover:border-border-hover hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20
         focus:outline-none focus:ring-2 focus:ring-accent/50"
@@ -58,36 +72,50 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {/* Top row: name + status */}
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-base font-semibold text-primary truncate pr-2 group-hover:text-accent transition-colors">
-          {site.name}
-        </h3>
-        <div className="flex items-center gap-1.5 flex-shrink-0">
-          <span className={`w-2.5 h-2.5 rounded-full ${statusColor} ${site.status === 'online' ? 'animate-pulse-slow' : ''}`} />
-          <span className="text-xs text-muted capitalize">{site.status}</span>
-        </div>
+      {/* Color thumbnail bar */}
+      <div
+        className="h-10 flex items-center justify-center relative overflow-hidden"
+        style={{ backgroundColor: colors.bg, borderBottom: `1px solid ${colors.border}` }}
+      >
+        <span className="text-xl font-bold text-white/80 font-mono-num tracking-tight">
+          {firstChar}
+        </span>
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
       </div>
 
-      {/* Description */}
-      <p className="text-sm text-secondary leading-relaxed line-clamp-2 mb-3">
-        {site.description}
-      </p>
-
-      {/* Bottom: tags + icon */}
-      <div className="flex items-center justify-between mt-auto">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className={`text-xs px-2 py-0.5 rounded-full border ${categoryTagStyles[site.category]}`}>
-            {categoryLabels[site.category]}
-          </span>
-          {site.tags.slice(0, 1).map((tag) => (
-            <span key={tag} className="text-xs text-muted px-1.5 py-0.5 rounded bg-input">
-              {tag}
-            </span>
-          ))}
+      {/* Content */}
+      <div className="p-4">
+        {/* Top row: name + status */}
+        <div className="flex items-center justify-between mb-1.5">
+          <h3 className="text-sm font-semibold text-primary truncate pr-2 group-hover:text-accent transition-colors">
+            {site.name}
+          </h3>
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <span className={`w-2 h-2 rounded-full ${statusColor} ${site.status === 'online' ? 'animate-pulse-slow' : ''}`} />
+          </div>
         </div>
-        <div className="w-8 h-8 rounded-lg bg-input flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-          <IconComponent className="w-4 h-4 text-muted group-hover:text-accent transition-colors" />
+
+        {/* Description */}
+        <p className="text-xs text-secondary leading-relaxed line-clamp-2 mb-3">
+          {site.description}
+        </p>
+
+        {/* Bottom: tags + icon */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className={`text-xs px-2 py-0.5 rounded-full border ${categoryTagStyles[site.category]}`}>
+              {categoryLabels[site.category]}
+            </span>
+            {site.tags.slice(0, 1).map((tag) => (
+              <span key={tag} className="text-xs text-muted px-1.5 py-0.5 rounded bg-input">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="w-7 h-7 rounded-md bg-input flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+            <IconComponent className="w-3.5 h-3.5 text-muted group-hover:text-accent transition-colors" />
+          </div>
         </div>
       </div>
     </motion.div>
