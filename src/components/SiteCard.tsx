@@ -98,7 +98,7 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <StarRating rating={site.rating} />
-            <span className="text-xs text-muted">({Math.round(parseFloat(site.installs.replace('K', '000')) / 100)})</span>
+            <span className="text-xs text-muted">({Math.round(parseFloat(site.installs.replace('K', '')) * 10)})</span>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted">
             <span className="flex items-center gap-0.5">
