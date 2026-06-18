@@ -1,28 +1,12 @@
 import { motion } from 'framer-motion';
-import {
-  Activity, BarChart3, Radar, Stethoscope, Trophy, CheckCircle, Gauge, MapPin,
-  Globe, Layers, Building2, Zap, Grid3x3, GitBranch, Workflow, Cloud, Wallet,
-  Shuffle, Box, Sparkles, Cpu, Flame, Coins, Crown, CloudFog, Database, Receipt,
-  Terminal, MessageCircle, Hexagon, Phone, Rocket, Link, Star, Paintbrush, Bot,
-  Bone, DollarSign, Server, Shield, Code2, GitCommit, BookOpen, Store, TrendingDown,
-  Car, Target, Gift,
-} from 'lucide-react';
+import { Star, ExternalLink, Copy, Download } from 'lucide-react';
 import type { Site } from '../data/sites';
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Activity, BarChart3, Radar, Stethoscope, Trophy, CheckCircle, Gauge, MapPin,
-  Globe, Layers, Building2, Zap, Grid3x3, GitBranch, Workflow, Cloud, Wallet,
-  Shuffle, Box, Sparkles, Cpu, Flame, Coins, Crown, CloudFog, Database, Receipt,
-  Terminal, MessageCircle, Hexagon, Phone, Rocket, Link, Star, Paintbrush, Bot,
-  Bone, DollarSign, Server, Shield, Code2, GitCommit, BookOpen, Store, TrendingDown,
-  Car, Target, Gift,
-};
-
 const categoryTagStyles: Record<string, string> = {
-  detector: 'bg-green-500/10 text-green-400 border-green-500/20',
-  aggregator: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  relay: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  opensource: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+  detector: 'bg-green-50 text-green-600 border-green-200',
+  aggregator: 'bg-amber-50 text-amber-600 border-amber-200',
+  relay: 'bg-blue-50 text-blue-600 border-blue-200',
+  opensource: 'bg-purple-50 text-purple-600 border-purple-200',
 };
 
 const categoryLabels: Record<string, string> = {
@@ -32,16 +16,28 @@ const categoryLabels: Record<string, string> = {
   opensource: '开源工具',
 };
 
-// 基于 id 生成稳定颜色（HSL -> 低饱和度暖色）
-function getColorFromId(id: string): { bg: string; border: string } {
-  let hash = 0;
-  for (let i = 0; i < id.length; i++) {
-    hash = id.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = Math.abs(hash % 360);
-  const bg = `hsl(${hue} 40% 18%)`;
-  const border = `hsl(${hue} 50% 30%)`;
-  return { bg, border };
+function StarRating({ rating }: { rating: number }) {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating - fullStars >= 0.5;
+  return (
+    <div className="flex items-center gap-0.5">
+      <span className="text-sm font-bold text-primary">{rating}</span>
+      <div className="flex items-center">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star
+            key={i}
+            className={`w-3.5 h-3.5 ${
+              i < fullStars
+                ? 'text-yellow-400 fill-yellow-400'
+                : i === fullStars && hasHalf
+                ? 'text-yellow-400 fill-yellow-400/50'
+                : 'text-gray-200'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 interface SiteCardProps {
@@ -51,71 +47,89 @@ interface SiteCardProps {
 }
 
 export default function SiteCard({ site, index, onClick }: SiteCardProps) {
-  const IconComponent = iconMap[site.icon] || Globe;
-  const statusColor = site.status === 'online' ? 'bg-status-online' : site.status === 'warning' ? 'bg-status-warn' : 'bg-status-danger';
-  const colors = getColorFromId(site.id);
-  const firstChar = site.name[0] || '?';
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.4, delay: index * 0.03, ease: 'easeOut' }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.35, delay: index * 0.02, ease: 'easeOut' }}
       layout
       onClick={onClick}
-      className="group relative bg-card border border-border-default rounded-xl cursor-pointer overflow-hidden
-        transition-all duration-300 ease-out
-        hover:bg-card-hover hover:border-border-hover hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20
-        focus:outline-none focus:ring-2 focus:ring-accent/50"
+      className="group relative bg-surface border border-border rounded-2xl cursor-pointer overflow-hidden
+        transition-all duration-200 ease-out
+        hover:shadow-lg hover:shadow-black/5 hover:border-border-hover hover:-translate-y-0.5
+        focus:outline-none focus:ring-2 focus:ring-accent/30"
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {/* Color thumbnail bar */}
+      {/* Colorful banner top */}
       <div
-        className="h-10 flex items-center justify-center relative overflow-hidden"
-        style={{ backgroundColor: colors.bg, borderBottom: `1px solid ${colors.border}` }}
+        className="h-8 relative overflow-hidden"
+        style={{ backgroundColor: site.bannerColor }}
       >
-        <span className="text-xl font-bold text-white/80 font-mono-num tracking-tight">
-          {firstChar}
-        </span>
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent" />
+        <div className="absolute bottom-1.5 left-3">
+          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${categoryTagStyles[site.category]}`}>
+            {categoryLabels[site.category]}
+          </span>
+        </div>
       </div>
 
       {/* Content */}
       <div className="p-4">
-        {/* Top row: name + status */}
-        <div className="flex items-center justify-between mb-1.5">
-          <h3 className="text-sm font-semibold text-primary truncate pr-2 group-hover:text-accent transition-colors">
-            {site.name}
-          </h3>
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <span className={`w-2 h-2 rounded-full ${statusColor} ${site.status === 'online' ? 'animate-pulse-slow' : ''}`} />
-          </div>
-        </div>
+        {/* Title */}
+        <h3 className="text-base font-bold text-primary mb-1 group-hover:text-accent transition-colors">
+          {site.name}
+        </h3>
+
+        {/* URL hint */}
+        <p className="text-xs text-muted mb-2 truncate">{site.url.replace(/^https?:\/\//, '')}</p>
 
         {/* Description */}
         <p className="text-xs text-secondary leading-relaxed line-clamp-2 mb-3">
           {site.description}
         </p>
 
-        {/* Bottom: tags + icon */}
+        {/* Divider */}
+        <div className="border-t border-border/60 mb-2" />
+
+        {/* Bottom: rating + installs */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className={`text-xs px-2 py-0.5 rounded-full border ${categoryTagStyles[site.category]}`}>
-              {categoryLabels[site.category]}
+          <div className="flex items-center gap-2">
+            <StarRating rating={site.rating} />
+            <span className="text-xs text-muted">({Math.round(parseFloat(site.installs.replace('K', '000')) / 100)})</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-muted">
+            <span className="flex items-center gap-0.5">
+              <Download className="w-3 h-3" />
+              {site.installs}
             </span>
-            {site.tags.slice(0, 1).map((tag) => (
-              <span key={tag} className="text-xs text-muted px-1.5 py-0.5 rounded bg-input">
-                {tag}
-              </span>
-            ))}
           </div>
-          <div className="w-7 h-7 rounded-md bg-input flex items-center justify-center group-hover:bg-accent/10 transition-colors">
-            <IconComponent className="w-3.5 h-3.5 text-muted group-hover:text-accent transition-colors" />
-          </div>
+        </div>
+
+        {/* Hover action buttons */}
+        <div className="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <a
+            href={site.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium hover:bg-accent hover:text-white transition-colors"
+          >
+            <ExternalLink className="w-3 h-3" />
+            访问
+          </a>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              navigator.clipboard.writeText(site.url);
+            }}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-bg text-secondary text-xs font-medium hover:bg-border transition-colors"
+          >
+            <Copy className="w-3 h-3" />
+            复制
+          </button>
         </div>
       </div>
     </motion.div>

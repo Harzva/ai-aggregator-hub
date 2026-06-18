@@ -9,6 +9,9 @@ export interface Site {
   status: 'online' | 'warning' | 'offline';
   tags: string[];
   icon: string;
+  rating: number;      // 1.0-5.0
+  installs: string;     // 热度/安装量显示
+  bannerColor: string;  // 卡片顶部横幅颜色
 }
 
 export const categories: { key: SiteCategory | 'all'; label: string; color: string }[] = [
@@ -30,6 +33,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['纯度检测', '掺水率', '延迟测试'],
     icon: 'Activity',
+    rating: 3.5,
+    installs: '4853',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'codexradar',
@@ -40,6 +46,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['Codex', 'IQ评分', 'Cache监控'],
     icon: 'BarChart3',
+    rating: 3.8,
+    installs: '4938',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'codex-reset-radar',
@@ -50,6 +59,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['额度重置', '预警', 'RSS订阅'],
     icon: 'Radar',
+    rating: 3.6,
+    installs: '6556',
+    bannerColor: '#fbcfe8',
   },
   {
     id: 'aiapidoctor',
@@ -60,6 +72,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['API检测', '配置验证', '稳定性'],
     icon: 'Stethoscope',
+    rating: 3.5,
+    installs: '4391',
+    bannerColor: '#fecdd3',
   },
   {
     id: 'aiapipk',
@@ -70,6 +85,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['竞技场', '价格排名', '实时对比'],
     icon: 'Trophy',
+    rating: 4.3,
+    installs: '6816',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'api-check',
@@ -80,6 +98,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['开源', 'OneAPI', 'Docker'],
     icon: 'CheckCircle',
+    rating: 3.8,
+    installs: '8564',
+    bannerColor: '#fbcfe8',
   },
   {
     id: 'cctest',
@@ -90,6 +111,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['并发测试', '速度检测', '多模型'],
     icon: 'Gauge',
+    rating: 3.8,
+    installs: '8927',
+    bannerColor: '#e9d5ff',
   },
   {
     id: 'chatgpt-top',
@@ -100,6 +124,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['导航', 'FAQ', '选型指南'],
     icon: 'MapPin',
+    rating: 4.7,
+    installs: '8653',
+    bannerColor: '#fde68a',
   },
 
   // === 聚合平台 / 一站式接入 (12) ===
@@ -112,6 +139,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['343+模型', '自动路由', '全球节点'],
     icon: 'Globe',
+    rating: 4.5,
+    installs: '10.4K',
+    bannerColor: '#bfdbfe',
   },
   {
     id: 'mnapi',
@@ -122,6 +152,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['聚合转发', '延迟优化', '质量监测'],
     icon: 'Layers',
+    rating: 3.7,
+    installs: '6357',
+    bannerColor: '#fde68a',
   },
   {
     id: 'poloapi',
@@ -132,6 +165,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['企业级', '生产环境', '国产模型'],
     icon: 'Building2',
+    rating: 3.6,
+    installs: '3892',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'apiyi',
@@ -142,6 +178,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['400+模型', '企业级', '发票支持'],
     icon: 'Zap',
+    rating: 4.8,
+    installs: '11.3K',
+    bannerColor: '#fed7aa',
   },
   {
     id: '302ai',
@@ -152,6 +191,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['应用市场', '零代码', '工具封装'],
     icon: 'Grid3x3',
+    rating: 4.6,
+    installs: '12.5K',
+    bannerColor: '#fecdd3',
   },
   {
     id: 'nonelinear',
@@ -162,6 +204,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['480+模型', '评测驱动', '企业SLA'],
     icon: 'GitBranch',
+    rating: 5.0,
+    installs: '13.2K',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'tokenriver',
@@ -172,6 +217,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['快速接入', '高SLA', '100+模型'],
     icon: 'Workflow',
+    rating: 4.3,
+    installs: '9562',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'shiyunapi',
@@ -182,6 +230,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['企业级', '智能路由', '高并发'],
     icon: 'Cloud',
+    rating: 3.8,
+    installs: '4668',
+    bannerColor: '#c7d2fe',
   },
   {
     id: '4ksapi',
@@ -192,6 +243,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['高性价比', '折扣', '成本敏感'],
     icon: 'Wallet',
+    rating: 4.5,
+    installs: '9970',
+    bannerColor: '#fecdd3',
   },
   {
     id: 'aihubmix',
@@ -202,6 +256,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['轻量', '接口兼容', '快速切换'],
     icon: 'Shuffle',
+    rating: 4.8,
+    installs: '9927',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'dmxapi',
@@ -212,6 +269,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['多模态', '模型覆盖', '测试友好'],
     icon: 'Box',
+    rating: 3.9,
+    installs: '7588',
+    bannerColor: '#e9d5ff',
   },
   {
     id: 'uiuiapi',
@@ -222,6 +282,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['一站式', '中小项目', '快速测试'],
     icon: 'Sparkles',
+    rating: 4.1,
+    installs: '7315',
+    bannerColor: '#bfdbfe',
   },
 
   // === 国内中转站 (20) ===
@@ -234,6 +297,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['开源模型', 'DeepSeek', 'Qwen', '推理加速'],
     icon: 'Cpu',
+    rating: 4.6,
+    installs: '8683',
+    bannerColor: '#fde68a',
   },
   {
     id: 'chatfire',
@@ -244,6 +310,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['多模态', '特价', '国产AI'],
     icon: 'Flame',
+    rating: 4.5,
+    installs: '12.0K',
+    bannerColor: '#c7d2fe',
   },
   {
     id: 'aabao',
@@ -254,6 +323,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['低价', 'AZ分组', '多模型'],
     icon: 'Coins',
+    rating: 3.7,
+    installs: '6708',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'gptgod',
@@ -264,6 +336,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['逆向', '低价', 'gpt-4o-all'],
     icon: 'Crown',
+    rating: 5.0,
+    installs: '14.7K',
+    bannerColor: '#fde68a',
   },
   {
     id: 'yunwu',
@@ -274,6 +349,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['全面模型', '国内直连', '稳定'],
     icon: 'CloudFog',
+    rating: 4.5,
+    installs: '8058',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'zhtec',
@@ -284,6 +362,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['分层定价', 'SVIP', 'Claude'],
     icon: 'Database',
+    rating: 4.7,
+    installs: '11.2K',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'bltcy',
@@ -294,6 +375,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['AZ低价', '官转', '灵活定价'],
     icon: 'Receipt',
+    rating: 3.9,
+    installs: '6328',
+    bannerColor: '#e9d5ff',
   },
   {
     id: 'gptapi',
@@ -304,6 +388,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['4o-mini', 'OpenAI', '专注'],
     icon: 'Terminal',
+    rating: 4.8,
+    installs: '11.7K',
+    bannerColor: '#c7d2fe',
   },
   {
     id: 'tomchat',
@@ -314,6 +401,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['轻量', '低价', '4o-mini'],
     icon: 'MessageCircle',
+    rating: 4.5,
+    installs: '10.8K',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'v3',
@@ -324,6 +414,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['OpenAI', '稳定', '中等价位'],
     icon: 'Hexagon',
+    rating: 3.7,
+    installs: '4743',
+    bannerColor: '#a5f3fc',
   },
   {
     id: 'ephone',
@@ -334,6 +427,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['简洁', 'OpenAI', '入门'],
     icon: 'Phone',
+    rating: 4.6,
+    installs: '12.5K',
+    bannerColor: '#ddd6fe',
   },
   {
     id: 'sbgpt',
@@ -344,6 +440,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['AZ渠道', '低价', 'OpenAI'],
     icon: 'Rocket',
+    rating: 4.6,
+    installs: '11.6K',
+    bannerColor: '#fde68a',
   },
   {
     id: 'ggwk1',
@@ -354,6 +453,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['三模型', 'AZ低价', 'Claude低价'],
     icon: 'Link',
+    rating: 4.1,
+    installs: '7395',
+    bannerColor: '#c7d2fe',
   },
   {
     id: 'galaxyapi',
@@ -364,6 +466,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['国内直连', 'OpenAI', '优化'],
     icon: 'Star',
+    rating: 4.3,
+    installs: '7343',
+    bannerColor: '#bfdbfe',
   },
   {
     id: 'paintbot',
@@ -374,6 +479,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['多模态', '低价', '三模型'],
     icon: 'Paintbrush',
+    rating: 4.8,
+    installs: '10.4K',
+    bannerColor: '#fecdd3',
   },
   {
     id: 'gptuu',
@@ -384,6 +492,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['全模型', 'Claude', 'Gemini'],
     icon: 'Bot',
+    rating: 4.7,
+    installs: '12.1K',
+    bannerColor: '#bfdbfe',
   },
   {
     id: 'boneapi',
@@ -394,6 +505,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['AZ分组', '多模型', '中等价位'],
     icon: 'Bone',
+    rating: 3.6,
+    installs: '6226',
+    bannerColor: '#c7d2fe',
   },
   {
     id: 'yuegle',
@@ -404,6 +518,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['低价', 'Claude', 'Gemini'],
     icon: 'DollarSign',
+    rating: 5.0,
+    installs: '14.4K',
+    bannerColor: '#c7d2fe',
   },
   {
     id: 'kksj',
@@ -414,6 +531,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['CN线路', '国内', '多模型'],
     icon: 'Server',
+    rating: 5.0,
+    installs: '10.2K',
+    bannerColor: '#fde68a',
   },
   {
     id: 'shawnapi',
@@ -424,6 +544,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['OpenAI', '稳定', '可靠'],
     icon: 'Shield',
+    rating: 4.5,
+    installs: '12.0K',
+    bannerColor: '#bbf7d0',
   },
 
   // === 开源/自建工具 (10) ===
@@ -436,6 +559,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['Go', 'Redis', 'Docker', '开源'],
     icon: 'Code2',
+    rating: 4.7,
+    installs: '11.4K',
+    bannerColor: '#fde68a',
   },
   {
     id: 'one-api',
@@ -446,6 +572,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['网关', '高校背书', '多厂商'],
     icon: 'GitCommit',
+    rating: 3.9,
+    installs: '5895',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'awesome-ai-proxy',
@@ -456,6 +585,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['导航', 'GitHub', '社区维护'],
     icon: 'BookOpen',
+    rating: 3.5,
+    installs: '4757',
+    bannerColor: '#a5f3fc',
   },
   {
     id: 'ai-api-doctor-site',
@@ -466,6 +598,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['检测', '前端', '配置验证'],
     icon: 'Stethoscope',
+    rating: 4.6,
+    installs: '12.3K',
+    bannerColor: '#fbcfe8',
   },
   {
     id: 'api-check-os',
@@ -476,6 +611,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['测活', 'OneAPI', 'Docker'],
     icon: 'CheckCircle',
+    rating: 4.8,
+    installs: '11.5K',
+    bannerColor: '#bbf7d0',
   },
   {
     id: 'aiapi-market',
@@ -486,6 +624,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['供应商', '免费额度', '教程配套'],
     icon: 'Store',
+    rating: 4.4,
+    installs: '8352',
+    bannerColor: '#fbcfe8',
   },
   {
     id: 'kfcv50',
@@ -496,6 +637,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['极致低价', 'AZ', 'OpenAI'],
     icon: 'TrendingDown',
+    rating: 4.6,
+    installs: '12.5K',
+    bannerColor: '#fed7aa',
   },
   {
     id: 'nio',
@@ -506,6 +650,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['全面覆盖', '多模型', '平价'],
     icon: 'Car',
+    rating: 4.9,
+    installs: '12.3K',
+    bannerColor: '#fbcfe8',
   },
   {
     id: 'gueai',
@@ -516,6 +663,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['AZ专注', '低价', 'Claude'],
     icon: 'Target',
+    rating: 3.5,
+    installs: '5573',
+    bannerColor: '#a5f3fc',
   },
   {
     id: 'azapi',
@@ -526,6 +676,9 @@ export const sites: Site[] = [
     status: 'online',
     tags: ['AZ促销', '节日活动', '低价'],
     icon: 'Gift',
+    rating: 3.9,
+    installs: '6573',
+    bannerColor: '#fde68a',
   },
 ];
 
