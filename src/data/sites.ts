@@ -687,6 +687,19 @@ export function getSitesByCategory(category: SiteCategory | 'all'): Site[] {
   return sites.filter((site) => site.category === category);
 }
 
+export function getThumbnailUrl(url: string): string {
+  return `https://image.thum.io/get/width/400/crop/600/${encodeURIComponent(url)}`;
+}
+
+export function getFaviconUrl(url: string): string {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+  } catch {
+    return '';
+  }
+}
+
 export function searchSites(query: string): Site[] {
   const lower = query.toLowerCase();
   return sites.filter(

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Star, ExternalLink, Copy, Download } from 'lucide-react';
 import type { Site } from '../data/sites';
+import { getThumbnailUrl } from '../data/sites';
 
 const categoryTagStyles: Record<string, string> = {
   detector: 'bg-green-50 text-green-600 border-green-200',
@@ -47,6 +48,8 @@ interface SiteCardProps {
 }
 
 export default function SiteCard({ site, index, onClick }: SiteCardProps) {
+  const thumbnailUrl = getThumbnailUrl(site.url);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -63,14 +66,28 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {/* Colorful banner top */}
-      <div
-        className="h-8 relative overflow-hidden"
-        style={{ backgroundColor: site.bannerColor }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent" />
-        <div className="absolute bottom-1.5 left-3">
-          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${categoryTagStyles[site.category]}`}>
+      {/* Website thumbnail image - just-ddl style */}
+      <div className="relative shrink-0 overflow-hidden border-b border-border bg-slate-900 block h-40 w-full">
+        <img
+          src={thumbnailUrl}
+          alt={site.name}
+          loading="lazy"
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            // Fallback to gradient on error
+            (e.target as HTMLImageElement).style.display = 'none';
+            const parent = (e.target as HTMLImageElement).parentElement;
+            if (parent) {
+              parent.style.background = site.bannerColor;
+              parent.style.display = 'flex';
+              parent.style.alignItems = 'center';
+              parent.style.justifyContent = 'center';
+            }
+          }}
+        />
+        {/* Category badge on image */}
+        <div className="absolute top-2.5 left-2.5">
+          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-sm ${categoryTagStyles[site.category]}`}>
             {categoryLabels[site.category]}
           </span>
         </div>
@@ -84,7 +101,9 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
         </h3>
 
         {/* URL hint */}
-        <p className="text-xs text-muted mb-2 truncate">{site.url.replace(/^https?:\/\//, '')}</p>
+        <p className="text-xs text-muted mb-2 truncate">
+          {site.url.replace(/^https?:\/\//, '')}
+        </p>
 
         {/* Description */}
         <p className="text-xs text-secondary leading-relaxed line-clamp-2 mb-3">
@@ -98,7 +117,9 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <StarRating rating={site.rating} />
-            <span className="text-xs text-muted">({Math.round(parseFloat(site.installs.replace('K', '')) * 10)})</span>
+            <span className="text-xs text-muted">
+              ({Math.round(parseFloat(site.installs.replace('K', '')) * 10)})
+            </span>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted">
             <span className="flex items-center gap-0.5">
