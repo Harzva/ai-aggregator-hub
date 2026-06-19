@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Star, ExternalLink, Copy, Download } from 'lucide-react';
+import { useState } from 'react';
 import type { Site } from '../data/sites';
 
 const categoryTagStyles: Record<string, string> = {
@@ -16,7 +17,6 @@ const categoryLabels: Record<string, string> = {
   opensource: '开源工具',
 };
 
-// Generate unique color from site ID (consistent across reloads)
 function getAvatarColor(id: string): { bg: string; text: string } {
   const colors = [
     { bg: 'bg-orange-100', text: 'text-orange-600' },
@@ -39,12 +39,16 @@ function getAvatarColor(id: string): { bg: string; text: string } {
   return colors[Math.abs(hash) % colors.length];
 }
 
+function getScreenshotUrl(url: string): string {
+  return `https://image.thum.io/get/width/400/crop/600/${encodeURIComponent(url)}`;
+}
+
 function StarRating({ rating }: { rating: number }) {
   const fullStars = Math.floor(rating);
   const hasHalf = rating - fullStars >= 0.5;
   return (
     <div className="flex items-center gap-0.5">
-      <span className="text-sm font-bold text-primary">{rating}</span>
+      <span className="text-sm font-bold text-slate-900">{rating}</span>
       <div className="flex items-center">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
@@ -69,10 +73,61 @@ interface SiteCardProps {
   onClick: () => void;
 }
 
-export default function SiteCard({ site, index, onClick }: SiteCardProps) {
+function CardBanner({ site }: { site: Site }) {
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const avatarColor = getAvatarColor(site.id);
   const firstChar = site.name[0] || '?';
+  const screenshotUrl = getScreenshotUrl(site.url);
 
+  // If screenshot failed, show letter avatar
+  if (imgError) {
+    return (
+      <div className={`relative h-36 w-full flex items-center justify-center ${avatarColor.bg}`}>
+        <span className={`text-5xl font-black ${avatarColor.text} select-none`}>
+          {firstChar}
+        </span>
+        <div className="absolute top-2.5 left-2.5">
+          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-sm bg-white/80 backdrop-blur-sm ${categoryTagStyles[site.category]}`}>
+            {categoryLabels[site.category]}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative h-36 w-full overflow-hidden bg-slate-100">
+      {/* Letter avatar as fallback (shown behind screenshot) */}
+      <div className={`absolute inset-0 flex items-center justify-center ${avatarColor.bg}`}>
+        <span className={`text-5xl font-black ${avatarColor.text} select-none`}>
+          {firstChar}
+        </span>
+      </div>
+
+      {/* Screenshot image */}
+      <img
+        src={screenshotUrl}
+        alt={site.name}
+        loading="lazy"
+        className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-300 ${
+          imgLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        onLoad={() => setImgLoaded(true)}
+        onError={() => setImgError(true)}
+      />
+
+      {/* Category badge */}
+      <div className="absolute top-2.5 left-2.5 z-10">
+        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-sm bg-white/80 backdrop-blur-sm ${categoryTagStyles[site.category]}`}>
+          {categoryLabels[site.category]}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default function SiteCard({ site, index, onClick }: SiteCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -89,20 +144,7 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {/* Avatar banner area - just-ddl style */}
-      <div className={`relative h-36 w-full flex items-center justify-center ${avatarColor.bg}`}>
-        {/* Large first letter as avatar */}
-        <span className={`text-5xl font-black ${avatarColor.text} select-none`}>
-          {firstChar}
-        </span>
-        
-        {/* Category badge */}
-        <div className="absolute top-2.5 left-2.5">
-          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-sm bg-white/80 backdrop-blur-sm ${categoryTagStyles[site.category]}`}>
-            {categoryLabels[site.category]}
-          </span>
-        </div>
-      </div>
+      <CardBanner site={site} />
 
       {/* Content */}
       <div className="p-4">
