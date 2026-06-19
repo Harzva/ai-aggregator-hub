@@ -688,16 +688,18 @@ export function getSitesByCategory(category: SiteCategory | 'all'): Site[] {
 }
 
 export function getThumbnailUrl(url: string): string {
-  return `https://image.thum.io/get/width/400/crop/600/${encodeURIComponent(url)}`;
-}
-
-export function getFaviconUrl(url: string): string {
+  // Use Google favicon API for reliable icon display
   try {
     const domain = new URL(url).hostname;
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   } catch {
     return '';
   }
+}
+
+export function getScreenshotUrl(url: string): string {
+  // Thum.io screenshot (may be blocked by some sites)
+  return `https://image.thum.io/get/width/400/crop/600/${encodeURIComponent(url)}`;
 }
 
 export function searchSites(query: string): Site[] {

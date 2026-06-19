@@ -66,26 +66,21 @@ export default function SiteCard({ site, index, onClick }: SiteCardProps) {
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
-      {/* Website thumbnail image - just-ddl style */}
-      <div className="relative shrink-0 overflow-hidden border-b border-border bg-slate-900 block h-40 w-full">
+      {/* Website thumbnail area - just-ddl style */}
+      <div
+        className="relative shrink-0 overflow-hidden border-b border-border block h-36 w-full"
+        style={{ backgroundColor: site.bannerColor }}
+      >
         <img
           src={thumbnailUrl}
           alt={site.name}
           loading="lazy"
-          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-contain object-center p-4 transition-transform duration-500 group-hover:scale-110"
           onError={(e) => {
-            // Fallback to gradient on error
             (e.target as HTMLImageElement).style.display = 'none';
-            const parent = (e.target as HTMLImageElement).parentElement;
-            if (parent) {
-              parent.style.background = site.bannerColor;
-              parent.style.display = 'flex';
-              parent.style.alignItems = 'center';
-              parent.style.justifyContent = 'center';
-            }
           }}
         />
-        {/* Category badge on image */}
+        {/* Category badge */}
         <div className="absolute top-2.5 left-2.5">
           <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-sm ${categoryTagStyles[site.category]}`}>
             {categoryLabels[site.category]}
