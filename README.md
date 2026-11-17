@@ -25,7 +25,7 @@
 
 | 分类 | 数量 | 说明 |
 |------|------|------|
-| 纯度检测 | 8 | 中转站掺水率检测、Codex雷达、API检测工具 |
+| 纯度检测 | 9 | 中转站掺水率检测、Codex雷达、API检测工具 |
 | 聚合平台 | 12 | OpenRouter、MNAPI、API易等一站式接入平台 |
 | 中转站 | 20 | 硅基流动、ChatFire、GPTGod等国内中转服务 |
 | 开源工具 | 10 | NewAPI、OneAPI、awesome-ai-proxy等开源项目 |
@@ -56,6 +56,7 @@ git push -u origin main
 ## 参考网站
 
 - [hvoy.ai](https://hvoy.ai) — API中转站纯度检测
+- [folkbench.com](https://folkbench.com) — AI API 中转站排行榜与检测（排序含合作档位和运营加权，部分数据为展示样本）
 - [codexradar.com](https://codexradar.com) — Codex模型质量雷达
 - [github.com/mn-api/awesome-ai-proxy](https://github.com/mn-api/awesome-ai-proxy) — 中转站导航仓库
 

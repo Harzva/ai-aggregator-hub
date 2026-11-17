@@ -23,7 +23,7 @@ export const categories: { key: SiteCategory | 'all'; label: string; color: stri
 ];
 
 export const sites: Site[] = [
-  // === 中转站纯度检测 / 雷达 (8) ===
+  // === 中转站纯度检测 / 雷达 (9) ===
   {
     id: 'hvoy',
     name: 'HVOY',
@@ -36,6 +36,19 @@ export const sites: Site[] = [
     rating: 3.5,
     installs: '4853',
     bannerColor: '#bbf7d0',
+  },
+  {
+    id: 'folkbench',
+    name: 'Folkbench',
+    url: 'https://folkbench.com',
+    description: 'AI API 中转站排行榜与检测，覆盖延迟、稳定性和价格，并提供在线检测页。排序按站点规则，含合作档位和运营加权，部分数据为展示样本。',
+    category: 'detector',
+    status: 'online',
+    tags: ['排行榜', '在线检测', '价格'],
+    icon: 'Activity',
+    rating: 3.5,
+    installs: '—',
+    bannerColor: '#bfdbfe',
   },
   {
     id: 'codexradar',
